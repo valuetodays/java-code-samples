@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: SIMPLE-APP
+
+server:
+  port: 8080
+
+# 暴露所有 Actuator 端点
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        # 暴露 Prometheus 端点
+        include: '*'
+#        exclude:
+      server:
+        request:
+          metric-name: http.server.requests
+  # 对外暴露tag
+  metrics:
+    tags:
+      application: ${spring.application.name}

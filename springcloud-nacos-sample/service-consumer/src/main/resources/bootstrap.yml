@@ -1,0 +1,32 @@
+server:
+  port: 8071
+
+spring:
+  application:
+    name: service-consumer
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: v200:8848
+        # 命名空间ID
+        namespace:  nacostest
+      # com.alibaba.cloud.nacos.NacosConfigProperties
+      config:
+        # 配置中心地址
+        server-addr: v200:8848
+        group: "DEFAULT_GROUP"
+        # 命名空间ID
+        namespace: nacostest
+        # 对应nacos中的 ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置，但是示例工程中并不使用
+        shared-configs:
+          - dataId: common-config-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+            group: ${spring.cloud.nacos.config.group}
+
